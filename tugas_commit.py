@@ -32,3 +32,18 @@ user.append({
 })
 
 print("Data berhasil ditambahkan!")
+nama = input("Masukkan nama yang ingin dicari: ")
+found = False
+
+for data in user:
+  if data["nama"].lower() == nama.lower():
+    print("Data ditemukan!")
+    print("Nama: ", data["nama"])
+    print("NIK: ", data["nik"])
+    print("Jenis Kelamin: ", data["jenis_kelamin"])
+    print("Tanggal Lahir: ", data["tanggal_lahir"])
+    found = True
+    break
+
+if not found:
+  print("Data tidak ditemukan!")
