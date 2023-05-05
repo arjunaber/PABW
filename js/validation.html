@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form Validation</title>
+	<style>
+		input[type="text"], input[type="email"], input[type="password"] {
+			display: block;
+			margin-bottom: 10px;
+			padding: 5px;
+			width: 100%;
+		}
+		input[type="submit"] {
+			padding: 5px 10px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		.error {
+			color: red;
+			font-size: 12px;
+			margin-bottom: 5px;
+		}
+	</style>
+	<script>
+		function validateForm() {
+			var name = document.forms["myForm"]["name"].value;
+			var email = document.forms["myForm"]["email"].value;
+			var password = document.forms["myForm"]["password"].value;
+			var confirm_password = document.forms["myForm"]["confirm_password"].value;
+
+			var errors = {};
+
+			if (name == "") {
+				errors["name"] = "Name is required";
+			}
+
+			if (email == "") {
+				errors["email"] = "Email is required";
+			} else {
+				var pattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+				if (!pattern.test(email)) {
+					errors["email"] = "Invalid email format";
+				}
+			}
+
+			if (password == "") {
+				errors["password"] = "Password is required";
+			}
+
+			if (confirm_password == "") {
+				errors["confirm_password"] = "Confirm password is required";
+			} else if (password != confirm_password) {
+				errors["confirm_password"] = "Passwords do not match";
+			}
+
+			if (Object.keys(errors).length > 0) {
+				var errorHtml = "";
+				for (var key in errors) {
+					if (errors.hasOwnProperty(key)) {
+						errorHtml += "<div class='error'>" + errors[key] + "</div>";
+					}
+				}
+				document.getElementById("error-message").innerHTML = errorHtml;
+				return false;
+			} else {
+				return true;
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>Form Validation</h1>
+	<form name="myForm" onsubmit="return validateForm()" method="post">
+		<label for="name">Nama:</label>
+		<input type="text" id="name" name="name">
+
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email">
+
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password">
+
+		<label for="confirm_password">Confirm Password:</label>
+		<input type="password" id="confirm_password" name="confirm_password">
+
+		<div id="error-message"></div>
+
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>

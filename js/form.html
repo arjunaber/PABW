@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body >
+    <div id="body"> 
+        <b>Data mahasiswa</b><br>
+        <input type="text" name="nama" id="nama" placeholder="Nama Mahasiswa"/><br>
+        <input type="text" name="nim" id="nim" placeholder="Nim Mahasiswa"/><br>
+
+        
+        <input type="button" value="Tambah input" onclick="tambahInput()"/><br>
+        <input type="button" value="Click me" onclick="ambilData()"/><br>
+
+        
+    </div>
+    <script type="text/javascript"> 
+        let i = 0
+        function tambahInput(){
+            
+            let body        = document.getElementById("body")
+            body.innerHTML  += '<div id="mahasiswa'+i+'">'  +
+             '<input type="text" name="nama" id="nama" placeholder="Nama Mahasiswa" /><br>'+
+                              '<input type="text" name="nim" id="nim" placeholder="Nim Mahasiswa"/><br> <br>'+
+             '<input type="button" value="Hapus input" onclick="document.getElementById('+'\'mahasiswa'+i+'\').remove();"/></div> '
+            i++;
+        }
+        function ambilData(){
+            let angka1  = document.getElementById("angka1")
+            let angka2  = document.getElementById("angka2")
+            let operasi = document.getElementById("operasi").value
+
+            if(angka1.value == "" || angka2.value == ""){
+                alert("Isian tidak boleh kosong")
+                if(angka1.value == "")
+                    angka1.style.backgroundColor = "red"
+                if(angka2.value == "")
+                    angka2.style.backgroundColor = "red"
+            }
+            else{
+                let hasil = 0;
+                if(operasi == "+"){
+                    hasil = parseInt(angka1.value) + parseInt(angka2.value)
+                }
+                if(operasi == "-"){
+                    hasil = angka1.value - angka2.value
+                }
+                if(operasi == "*"){
+                    hasil = angka1.value * angka2.value
+                }
+                if(operasi == "/"){
+                    hasil = angka1.value / angka2.value
+                }
+                alert(hasil) 
+            }
+
+            
+            $.ajax ({
+            url :"https://jsonplaceholder.typicode.com/users",
+            type : "GET",
+            dataType : "json",
+            success :function(data){
+                console.log(data)
+                parseJson(data)
+            }
+        })
+            
+        }
+
+
+    </script>
+</body>
+</html>
